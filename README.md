@@ -148,17 +148,49 @@ String s1 = null;
 String s2 = s1.substring(11);
 ```
 
+**Exceção:** _java.lang.NullPointerException_
+
 b)
  
 ```java
-String[] indices = new String[2]
-System.out.println(indices[2])
+String[] indices = new String[2]; //Adicionei ponto e vírgula para rodar
+System.out.println(indices[2]); //Adicionei ponto e vírgula para rodar
 ```
+
+**Exceção:** _java.lang.ArrayIndexOutOfBoundsException_
+
 ## 6. Escreva três tipo de dados primitivos da linguagem java.
+* boolean
+* int
+* char
 
 ## 7. Qual a diferença entre os modificadores de acesso public , protected default e private?
 
+* public: _Visto fora do escopo da classe_
+* private: _Visto no escopo da classe_
+* protected: _Visto no escopo do pacote_
+* default: _Visto no escopo do pacote (Quando não é informado é default)_
+
 ## 8. Escreva o bloco de captura e tratamento da exception NullPointerException.
+
+```java
+
+public class ExercicioNullPointerException {
+    public static void main(String[] args) {
+        try {
+            fazerAlgoQueDisparaNullPointerException();
+        } catch (NullPointerException e) {
+            System.out.print("Capturei um NullPointerException");
+        }
+    }
+
+    public static void fazerAlgoQueDisparaNullPointerException() {
+        String textoNulo = null;
+        textoNulo.endsWith("Alguma palavra");
+    }
+}
+
+```
 
 ## 9. Qual mensagem será enviada para a saída padrão no código abaixo?
 
@@ -177,6 +209,43 @@ if(i==j)
 else
     System.out.println("false");
 ```
+
+_Segue código e retorno no comentário antes da condição_
+
+```java
+
+public class Mensagem {
+    public static void main(String[] args) {
+        String v1 = new String("linux");
+        String v2 = new String("linux");
+        //if(s1==s2) //nao compila pois não é possível localizar a variável s1 e s2
+        //retorna false
+        if(v1==v2)
+            System.out.println("true");
+        else
+            System.out.println("false");
+        //retorna true
+        if(v1.equals(v2))
+            System.out.println("true");
+        else
+            System.out.println("false");
+        //retorna false
+        int i = 1, j=2;
+        if(i==j)
+            System.out.println("true");
+        else
+            System.out.println("false");
+        //extra retorna true
+        int y= 300, x=300;
+        if(y==x)
+            System.out.println("true");
+        else
+            System.out.println("false");
+    }
+}
+
+```
+
 b)
 
 ```java
@@ -197,6 +266,34 @@ public class Klass {
 }
 ```
 
+_Segue resultado ** 2,3,Default ** e sugestão no comentário **Incluir um break no final de cada case**_
+
+
+```java
+
+public class Klass {
+    public static void main(String[] args) {
+        int key = 2;
+        switch (key) {
+            case 1:
+                System.out.println(1);
+             case 2:
+                System.out.println(2);
+                 //faltou break para o comportamento adequado                
+            case 3:
+                System.out.println(3);
+            default:
+                System.out.println("default");
+        }
+    }
+}
+
+```
+
+
+
+
+
 ## 10. Analisando o código qual a saída que teremos
 
 ```java
@@ -211,9 +308,98 @@ Str.add("JAGUAR");
 Str.add("TOYOTA");
 Str.stream().sorted().filter((s) -> s.startsWith("J")).forEach(System.out::println);
 ```
+
+_A Saída que teremos será:_ 
+* JAC
+* JAGUAR
+* JEEP
+
+```java
+
+class ExercicioArrayList {
+    public static void main(String[] args) {
+
+        ArrayList<String> Str = new ArrayList<>();
+        Str.add("HONDA");
+        Str.add("PEGEOT");
+        Str.add("BMW");
+        Str.add("FIAT");
+        Str.add("JEEP");
+        Str.add("JAC");
+        Str.add("JAGUAR");
+        Str.add("TOYOTA");
+
+        //Java 7
+        System.out.println("############ JAVA 7 #############");
+        Collections.sort(Str);
+
+        for(String cadaElementoDoArrayList : Str){
+            if(cadaElementoDoArrayList.startsWith("J"))
+                System.out.println(cadaElementoDoArrayList);
+        }
+
+        //Str.stream().forEach(cadaElementoDoArrayList -> System.out.println(cadaElementoDoArrayList));
+
+        //Java 8
+        System.out.println("############ JAVA 8 #############");
+        Str.stream()//Utiliza o Stream do Java 8 para manipular listas ganhamos vários métodos com o Stream
+        .sorted()//Coloca em ordem alfabetica
+        .filter(//Só exibe conforme o critério
+                (s) -> s.startsWith("J"))//O critério é começar com J
+                .forEach(System.out::println);//Imprime no console o que passou no critério;
+    }
+}
+
+```
+
 ## 11. Na sua opinião, qual a classe nativa mais indicada para armazenar e manipular datas? Implemente o código com a data de hoje.
 
+_LocalDate na minha opinião é a classe nativa mais indicada para aplicações novas, encontramos em outras mais antigas Date e Calendar por exemplo._
+
+```java
+
+public class DataHoje {
+    public static void main(String[] args) {
+        LocalDate hoje = LocalDate.now();
+        System.out.println(hoje);
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataFormatadaParaHumanos = hoje.format(formatador);
+        System.out.println("Formatado");
+        System.out.println(dataFormatadaParaHumanos);
+    }
+}
+
+```
 ## 12. O que é exatamente uma expressão lambda (exemplo)?
+
+_É uma função sem declaração, isto é, não é necessário colocar um nome, um tipo de retorno e o modificador de acesso. A ideia é que o método seja declarado no mesmo lugar em que será usado_
+
+```java
+
+public class ExercicioLambda {
+    public static void main(String[] args) {
+
+        //Exemplo 1
+        Runnable r = new Runnable() {
+            public void run() {
+                System.out.println("Thread sem lambda!");
+            }
+        };
+        new Thread(r).start();
+
+        Runnable r2 = () -> System.out.println("Thread sem lambda!");
+        new Thread(r2).start();
+
+
+        //Exemplo 2
+        System.out.println("Imprime todos os elementos da lista!");
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
+        list.forEach(System.out::println);
+    }
+}
+
+
+```
 
 ## 13. O código abaixo representa qual desing pattern ?
 
@@ -233,36 +419,58 @@ public Object clone() throws CloneNotSupportedException{
 }
 }
 ```
+
+**O Padrão de projeto utilizado é:** _Singleton_
+
 ## 16 (18) – Cite pelo menos quatro nomes de design patterns.
+
+* Singleton
+* Strategy
+* Builder
+* MVC
+
 
 ## 14. Definir o que é DDD?
 
+Domain-Driven Development
+O DDD é uma modelagem OO mais pura esquecer de como os dados são persistidos e nos preocupar em como representar melhor as necessidades de negócio em classes e comportamentos (métodos). As nomeclaturas refletem as mesmas do negócio, tudo é feito como vários guarda chuvas onde o domínio é o foco e as especializações partem dele de acordo com a lógica e regras do dia a dia.
+
 ## 15. Definir o que é TDD?
 
+TDD é o Desenvolvimento Orientado por Testes. Desenvolvemos o software baseado em testes que são escritos antes do código de produção com um ciclo de desenvolvimento onde codficamos um teste que inicialmente não passa, adicionamos uma nova funcionalidade no sistema, fazemos o Teste passar, refatoramos o código da nova funcionalidade e seguimos escrevendo os próximos Testes nessa hora a IDE ajuda muito criando classes, métodos para que os testes tenham suas dependências. Dessa forma não tem desculpa para não fazer testes e ajuda muito quando a empresa utiliza ferramentas e métricas apoiadas em testes.
+
 ## 16. Como você descreve as etapas do fluxo de desenvolvimento no SCRUM?
+
+No Scrum, os projetos são divididos em ciclos (tipicamente mensais) chamados de Sprints. O Sprint representa um Time Box dentro do qual um conjunto de atividades deve ser executado. Metodologias ágeis de desenvolvimento de software são iterativas, ou seja, o trabalho é dividido em iterações, que são chamadas de Sprints no caso do Scrum.
+
+As funcionalidades a serem implementadas em um projeto são mantidas em uma lista que é conhecida como Product Backlog. No início de cada Sprint, faz-se um Sprint Planning Meeting, ou seja, uma reunião de planejamento na qual o Product Owner prioriza os itens do Product Backlog e a equipe seleciona as atividades que ela será capaz de implementar durante o Sprint que se inicia. As tarefas alocadas em um Sprint são transferidas do Product Backlog para o Sprint Backlog.
+
+A cada dia de uma Sprint, a equipe faz uma breve reunião (normalmente de manhã), chamada Daily Scrum. O objetivo é disseminar conhecimento sobre o que foi feito no dia anterior, identificar impedimentos e priorizar o trabalho do dia que se inicia.
+
+Ao final de um Sprint, a equipe apresenta as funcionalidades implementadas em uma Sprint Review Meeting. Finalmente, faz-se uma Sprint Retrospective e a equipe parte para o planejamento do próximo Sprint. Assim reinicia-se o ciclo.
 
 ## 17. O que as anotações nas classes ou nos métodos abaixo estão indicando?
 
 ```java
-@Test
+@Test //Método de teste (jUnit)
 public void calculoValorParcelaPendente() {
     ...
 }
-@Entity
+@Entity //Entidade mapeada pela JPA para persistência (Se não indicada também entitula a tabela no banco de dados)
 public class ClientePEP() {
     ...
 }
 public class ClientePEP() {
-    @ID
+    @ID //Define que o atributo anotado será a chave
     private Long id
 }
-@RestController
+@RestController //Informa que a referida classe é o controler dotado dos endpoints da aplicação no caso de uma API
 public class InformarSinistroController() {
 
-    @Autowired
+    @Autowired //Injeção de dependências o princípio da inversão de controle, onde em frameworks como spring não precisamos instanciar todas as dependências, utilizando do recurso da injeção declaramos e anotamos e o framework cuida dos aspectos técnicos para garantir o uso do objeto injetado
     private ClientService clientService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") //end point do verbo GET utilizado para entrada de informações no controler no caso pegando o id do path da URI
     public BemSegurado read(@PathVariable Long id) throws Exception {}
 
 }

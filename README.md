@@ -168,7 +168,11 @@ System.out.println(indices[2]); //Adicionei ponto e vírgula para rodar
 
 * public: _Visto fora do escopo da classe_
 * private: _Visto no escopo da classe_
+<<<<<<< HEAD
 * protected: _Visto no escopo do pacote e por herança_
+=======
+* protected: _Visto no escopo do pacote_
+>>>>>>> 5d3065c8c9abb7078f92938c05cecb1a5a1e4eb0
 * default: _Visto no escopo do pacote (Quando não é informado é default)_
 
 ## 8. Escreva o bloco de captura e tratamento da exception NullPointerException.
@@ -387,6 +391,7 @@ public class ExercicioLambda {
         };
         new Thread(r).start();
 
+
         Runnable r2 = () -> System.out.println("Thread com lambda!");
         new Thread(r2).start();
 
@@ -419,12 +424,17 @@ public Object clone() throws CloneNotSupportedException{
 }
 }
 ```
+<<<<<<< HEAD
 Existem padrões parecidos mas com algumas particularidades, por exemplo:
 *Prototype*_=Um novo objeto é criado toda vez que é injetado/procurado._
 _Ele usará new AlgumaClasse() a cada vez._
 *Singleton*_=O mesmo objeto é retornado toda vez que é injetado/procurado._
 _Aqui, ele irá instanciar uma instância de AlgumaClasse() e, em seguida, retornará a cada vez._
 **O Padrão de projeto utilizado que mais se assemelha:** _Singleton_
+=======
+
+**O Padrão de projeto utilizado é:** _Singleton_
+>>>>>>> 5d3065c8c9abb7078f92938c05cecb1a5a1e4eb0
 
 ## 16 (18) – Cite pelo menos quatro nomes de design patterns.
 
